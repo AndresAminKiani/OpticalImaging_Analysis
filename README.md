@@ -1,2 +1,2 @@
 # OpticalImaging_Analysis
-The analysis and code accompanying figures and results from *** paper. 
+Analysis and code accompanying figures and results from *** paper. 
