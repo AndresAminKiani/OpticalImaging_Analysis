@@ -1,6 +1,6 @@
 function [imgDS_prob1, imgDS_prob2, trialsDS_prob1, trialsDS_prob2] = loadDS_B()
   cd /home/range1-raid2/sgwarren-data/Deviant/Blofeld/Data/Deviant/B 
-  DS_prob1 = load('DeviantOn_AlignTo_stimulusOnTime.mat')
+  DS_prob1 = load('DeviantOn_AlignTo_stimulusOnTime.mat');
   cd ~/matlab/OpticalImagingProject
 
   imgDS_prob1 = ImageHelper.convertSparseToFull(DS_prob1.S, DS_prob1.IX, DS_prob1.V);
@@ -11,11 +11,12 @@ function [imgDS_prob1, imgDS_prob2, trialsDS_prob1, trialsDS_prob2] = loadDS_B()
   end
 
   imgDS_prob1 = imgDS_prob1(:, :, :, ~(trial_ID == -1));
-  trialDS_prob1 = DS_prob1(~(trial_ID == -1));
+  trialDS_prob1 = DS_prob1.T(~(trial_ID == -1));
+  element_ID = element_ID(~(trial_ID == -1));
 
-  imgDS_prob1_byelements = cell(length(unique(trialDS_prob1)), 1);
+  imgDS_prob1_byElements = cell(length(unique(element_ID)), 1);
 
-  for k = 1 : length(unique(trialDS_prob1))
-    imgDS_prob1_byelements{k} = imgDS_prob1(:, :, :, element_ID == (k - 1));
+  for k = 1 : length(unique(element_ID))
+    imgDS_prob1_byElements{k} = imgDS_prob1(:, :, :, element_ID == (k - 1));
   end
 end
