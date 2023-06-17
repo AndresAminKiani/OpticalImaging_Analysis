@@ -1,9 +1,10 @@
-function [imgDS_prob1, imgDS_prob2, trialsDS_prob1, trialsDS_prob2] = loadDS_B()
+function [imgDS_prob1, imgDS_prob2, trialDS_prob1, trialDS_prob2] = loadDS_B()
   cd /home/range1-raid2/sgwarren-data/Deviant/Blofeld/Data/Deviant/B 
   DS_prob1 = load('DeviantOn_AlignTo_stimulusOnTime.mat');
   cd ~/matlab/OpticalImagingProject
 
-  imgDS_prob1 = ImageHelper.convertSparseToFull(DS_prob1.S, DS_prob1.IX, DS_prob1.V);
+  imgDS_prob1 = nan(DS_prob1.S);
+  imgDS_prob1(DS_prob1.IX) = DS_prob1.V;
 
   for k = 1 : size(imgDS_prob1, 4)
     trial_ID(k) = DS_prob1.T(k).trialDescription.stimulusIndex;
@@ -19,4 +20,30 @@ function [imgDS_prob1, imgDS_prob2, trialsDS_prob1, trialsDS_prob2] = loadDS_B()
   for k = 1 : length(unique(element_ID))
     imgDS_prob1_byElements{k} = imgDS_prob1(:, :, :, element_ID == (k - 1));
   end
+
+  clear element_ID trial_ID
+
+  cd /home/range1-raid2/sgwarren-data/Deviant/Blofeld/Data/Deviant/B
+  DS_prob2 = load('DeviantOff_AlignTo_stimulusOnTime.mat');
+  cd ~/matlab/OpticalImagingProject
+
+  imgDS_prob2 = nan(DS_prob2.S);
+  imgDS_prob2(DS_prob2.IX) = DS_prob2.V;
+
+  for k = 1 : size(imgDS_prob2, 4)
+    trial_ID(k) = DS_prob2.T(k).trialDescription.stimulusIndex;
+    element_ID(k) = DS_prob2.T(k).trialDescription.deviantPosition;
+  end
+
+  imgDS_prob2 = imgDS_prob2(:, :, :, ~(trial_ID == -1));
+  trialDS_prob2 = DS_prob2.T(~(trial_ID == -1));
+  element_ID = element_ID(~(trial_ID == -1));
+
+  imgDS_prob2_byElements = cell(length(unique(element_ID)), 1);
+
+  for k = 1 : length(unique(element_ID))
+    imgDS_prob2_byElements{k} = imgDS_prob2(:, :, :, element_ID == (k - 1));
+  end
+
+  clear element_ID trial_ID
 end
