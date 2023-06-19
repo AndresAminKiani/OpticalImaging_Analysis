@@ -1,6 +1,5 @@
 function [pix_time_trialsumSingleElement] = meanAcrossTrials_step2(imgDSsingleElement) % 316 316 52 45
 pix_trial_time_singleElement = reshape(imgDSsingleElement, [316*316 size(imgDSsingleElement, 3) size(imgDSsingleElement, 4)]); % 99856 52 45 : pixels trials time
-tic
 for z = 1 : length(pix_trial_time_singleElement) % pixels
     for j = 1 : size(pix_trial_time_singleElement, 3) % time
         trials_PixelTime = pix_trial_time_singleElement(z, :, j); % vector of trials, 52 x 1
