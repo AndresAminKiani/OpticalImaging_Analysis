@@ -1,0 +1,5 @@
+function [dmPCAimg_element] = FilterRetino(dmPCAscores_pix_element, maskn, filterSize)
+dmPCAimg_element = reshape(dmPCAscores_pix_element, [ [maskn(2) - maskn(1) + 1]  [maskn(4) - maskn(3) + 1] size(dmPCAscores_pix_element, 2)]);
+for j = 1 : size(dmPCAimg_element, 3)
+    dmPCAimg_element(:, :, j) = imgaussfilt(dmPCAimg_element(:, :, j), filterSize); end
+end
