@@ -1,0 +1,10 @@
+function [LmapVoidPixels_pix_element] = idVoidPixels(pix_time_trialsumDS)
+LmapVoidPixels_pix_element = true(length(pix_time_trialsumDS), 1); % pixels
+
+for elements = 1: size(pix_time_trialsumDS, 3) % elements
+    for pixel = 1 : length(LmapVoidPixels_pix_element) % pixels
+                timeframes_PixelElement = pix_time_trialsumDS(pixel, :, elements); % Time frame by j pixel
+                LmapVoidPixels_pix_element(pixel, elements) = ~(length(timeframes_PixelElement) == sum(isnan(timeframes_PixelElement)));
+    end
+end
+end
