@@ -1,0 +1,5 @@
+function [demean_subimgDS] = mask_and_demeanbytime(imgDS, mask, timeWindow, varargin)
+    image_shift = cell2mat(varargin);
+    subimgDS = maskEffect(imgDS, mask, timeWindow, image_shift);
+    [demean_subimgDS] = demeanbytime(subimgDS);
+end
