@@ -1,0 +1,8 @@
+function [demean_subimgDS] = demeanbytime(subimgDS)
+demean_subimgDS = [];
+for j = 1:size(subimgDS, 3)
+    subimgDSsingleElement = subimgDS(:, :, j);
+    demeanbytimesubimgDSsingleElement = mean(subimgDSsingleElement, 2);
+    demeanbytimesubimgDSsingleElement = subimgDSsingleElement - demeanbytimesubimgDSsingleElement;
+    demean_subimgDS(:, :, j) = demeanbytimesubimgDSsingleElement;
+end
