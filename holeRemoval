@@ -1,0 +1,7 @@
+function [pix_time_trialsumDS] = holeRemoval(pix_time_trialsumDS, LmapVoidPixels_pix_element, timeWindow)
+    for j = 1 : 9
+    pix_time_trialsumDS( LmapVoidPixels_pix_element(:, j), timeWindow, j ) = holeRemoval_FillFunc( pix_time_trialsumDS(LmapVoidPixels_pix_element(:, j), timeWindow, j) );
+    pix_time_trialsumDS( LmapVoidPixels_pix_element(:, j), timeWindow, j + 9 ) = holeRemoval_FillFunc( pix_time_trialsumDS(LmapVoidPixels_pix_element(:, j + 9), timeWindow, j + 9) );
+    j
+    end
+end
