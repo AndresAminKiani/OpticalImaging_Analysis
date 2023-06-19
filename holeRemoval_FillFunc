@@ -1,0 +1,8 @@
+function [subsetpix_time_trialsumDS] = holeRemoval_FillFunc(subsetpix_time_trialsumDS)
+    % Mean-fill method
+    for pixel = 1 : size(subsetpix_time_trialsumDS, 1)
+            time_Pixel = subsetpix_time_trialsumDS(pixel, :);
+            idholes = find( isnan( time_Pixel ) ); % logic vector indexing nan elements
+            subsetpix_time_trialsumDS(pixel, idholes) = nanmean( subsetpix_time_trialsumDS(:, idholes) );
+    end
+end
