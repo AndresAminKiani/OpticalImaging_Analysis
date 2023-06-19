@@ -1,0 +1,5 @@
+function [imgDS_full] = interpolateMethod(imgDS, timeWindow)
+    [pix_time_trialsumDS] = meanAcrossTrials_step1(imgDS);
+    [LmapVoidPixels_pix_element] = idVoidPixels(pix_time_trialsumDS); 
+    [imgDS_full] = holeRemoval(pix_time_trialsumDS, LmapVoidPixels_pix_element, timeWindow);
+end
