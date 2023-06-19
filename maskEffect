@@ -1,0 +1,12 @@
+function [M] = maskEffect(nm3, maskn, timeWindow, varargin)
+    image_shift = cell2mat(varargin);
+        M = reshape(nm3, [316 316 size(nm3, 2) size(nm3, 3)]); % Image Format
+        if isempty(image_shift)
+            M = M(maskn(1):maskn(2), maskn(3):maskn(4), timeWindow, 1 : size(nm3, 3));
+            'no shift'
+        else
+            M = M(maskn(1):maskn(2), maskn(3) + image_shift:maskn(4) + image_shift, timeWindow, 1 : size(nm3, 3));
+            'shift'
+        end
+        M = reshape(M, [size(M, 1)*size(M, 2) size(M, 3) size(nm3, 3)]); % Expanded
+end
