@@ -1,4 +1,4 @@
-function [imgDS_prob1, imgDS_prob2, trialDS_prob1, trialDS_prob2] = loadDS_B()
+function [imgDS_prob1_byElements, imgDS_prob2_byElements, trialDS_prob1, trialDS_prob2] = loadDS_B()
   cd /home/range1-raid2/sgwarren-data/Deviant/Blofeld/Data/Deviant/B 
   DS_prob1 = load('DeviantOn_AlignTo_stimulusOnTime.mat');
   cd ~/matlab/OpticalImagingProject
@@ -11,17 +11,17 @@ function [imgDS_prob1, imgDS_prob2, trialDS_prob1, trialDS_prob2] = loadDS_B()
     element_ID(k) = DS_prob1.T(k).trialDescription.deviantPosition;
   end
 
-  imgDS_prob1 = imgDS_prob1(:, :, :, ~(trial_ID == -1));
+  imgDS_prob1_nocatch = imgDS_prob1(:, :, :, ~(trial_ID == -1));
   trialDS_prob1 = DS_prob1.T(~(trial_ID == -1));
   element_ID = element_ID(~(trial_ID == -1));
 
   imgDS_prob1_byElements = cell(length(unique(element_ID)), 1);
 
   for k = 1 : length(unique(element_ID))
-    imgDS_prob1_byElements{k} = imgDS_prob1(:, :, :, element_ID == (k - 1));
+    imgDS_prob1_byElements{k} = imgDS_prob1_nocatch(:, :, :, element_ID == (k - 1));
   end
 
-  clear element_ID trial_ID
+  clear element_ID trial_ID DS_prob1 imgDS_prob1 imgDS_prob1_nocatch
 
   cd /home/range1-raid2/sgwarren-data/Deviant/Blofeld/Data/Deviant/B
   DS_prob2 = load('DeviantOff_AlignTo_stimulusOnTime.mat');
@@ -35,15 +35,15 @@ function [imgDS_prob1, imgDS_prob2, trialDS_prob1, trialDS_prob2] = loadDS_B()
     element_ID(k) = DS_prob2.T(k).trialDescription.deviantPosition;
   end
 
-  imgDS_prob2 = imgDS_prob2(:, :, :, ~(trial_ID == -1));
+  imgDS_prob2nocatch = imgDS_prob2(:, :, :, ~(trial_ID == -1));
   trialDS_prob2 = DS_prob2.T(~(trial_ID == -1));
   element_ID = element_ID(~(trial_ID == -1));
 
   imgDS_prob2_byElements = cell(length(unique(element_ID)), 1);
 
   for k = 1 : length(unique(element_ID))
-    imgDS_prob2_byElements{k} = imgDS_prob2(:, :, :, element_ID == (k - 1));
+    imgDS_prob2_byElements{k} = imgDS_prob2nocatch(:, :, :, element_ID == (k - 1));
   end
 
-  clear element_ID trial_ID
+  clear element_ID trial_ID DS_prob2 imgDS_prob2 imgDS_prob2nocatch
 end
