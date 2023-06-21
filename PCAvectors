@@ -1,5 +1,4 @@
-function [PCAvector_element_pc, PCAvector_pc] = PCAvectors(pix_time_elements, timeWindow, str)
-        [PCAvector_element_pc] = Ret_ElementWise(pix_time_elements);
+function [PCAvector_element_pc, PCAvector_pc] = PCAvectors(pix_time_elements)
+        [PCAvector_element_pc] = ElementWisePCA(pix_time_elements);
         [PCAvector_pc]  = Ret_Pool(pix_time_elements); 
-%     [demeanpixelPCAscores_element, pixelPCAscores_element, PCAvector_element] = Ret_Old(pix_time_elements, timeWindow);
 end
