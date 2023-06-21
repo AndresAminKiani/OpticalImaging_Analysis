@@ -1,7 +1,6 @@
 function [pix_time_trialsumDS] = meanAcrossTrials_step1(imgDS)
-    for j = 1 : length(imgDS)
-        pix_time_trialsumSingleElement = meanAcrossTrials_step2(imgDS{j}); 
+    parfor j = 1 : length(imgDS)
+        pix_time_trialsumSingleElement = meanAcrossTrials_step2(imgDS{j}, j); 
         pix_time_trialsumDS(:, :, j) = pix_time_trialsumSingleElement;
-        j
     end
 end
