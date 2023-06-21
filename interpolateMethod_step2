@@ -1,0 +1,16 @@
+function [filledsubset] = interpolateMethod_step2(pix_time, element)
+    for pix = 1 : size(pix_time, 1)
+        timeseries = pix_time(pix, :);
+        if sum(~isnan(timeseries)) > 1
+            timeseries = pix_time(pix, :);
+            nan_id = ~isnan(timeseries);
+            cs_holes = cumsum( nan_id - diff([1, nan_id])/2 );
+            interpolatedSignal = interp1(1 : nnz(nan_id), timeseries(nan_id), cs_holes);
+            filledsubset(pix, :) = interpolatedSignal;
+            disp([num2str(pix), ' ', num2str(element)])
+        else
+            filledsubset(pix, :) = timeseries;
+            disp([num2str(pix), ' ', num2str(element)])
+        end
+    end
+end
