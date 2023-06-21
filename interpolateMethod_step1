@@ -1,0 +1,7 @@
+function [imgDS_full] = interpolateMethod_step1(pix_time_trialsumDS, LmapVoidPixels_pix_element, timeWindow)
+imgDS_full = pix_time_trialsumDS;
+    for element = 1 : size(pix_time_trialsumDS, 3) % element
+        pix_time = pix_time_trialsumDS(LmapVoidPixels_pix_element(:, element), timeWindow, element);
+        imgDS_full(LmapVoidPixels_pix_element(:, element), timeWindow, element) = interpolateMethod_step2(pix_time, element);
+    end
+end
