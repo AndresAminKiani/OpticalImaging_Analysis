@@ -1,0 +1,12 @@
+function [PCAvector_element_pc] = Ret_ElementWise(pix_time_elements)
+activationBank = cell(size(pix_time_elements, 3), 1);
+activationBank_nanremoved = activationBank;
+for element = 1 : size(pix_time_elements, 3)/2
+    activationBank{element} = pix_time_elements(:, :, element)';
+    A = activationBank{element};
+    activationBank_nanremoved{element} = A(1 : size(A, 1), ~logical(sum(isnan(A))));
+    [PCAvector, ~, ~] = svd(activationBank_nanremoved{element}, 'econ');
+    PCAvector_element_pc(:, element, 1) = PCAvector(:, 1);
+    PCAvector_element_pc(:, element, 2) = PCAvector(:, 2);
+end
+end
