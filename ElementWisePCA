@@ -1,4 +1,4 @@
-function [PCAvector_element_pc] = Ret_ElementWise(pix_time_elements)
+function [PCAvector_element_pc] = ElementWisePCA(pix_time_elements)
 activationBank = cell(size(pix_time_elements, 3), 1);
 activationBank_nanremoved = activationBank;
 for element = 1 : size(pix_time_elements, 3)/2
