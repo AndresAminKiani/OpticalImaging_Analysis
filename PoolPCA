@@ -1,0 +1,12 @@
+function [PCAvector_pc] = PoolPCA(pix_time_elements)
+activationBank = [];
+for element = 1 : ceil(size(pix_time_elements, 3) / 2)
+    pix_time = pix_time_elements(:, :, element);
+    activationBank = [activationBank; pix_time];
+end
+activationBank_nanremoved = activationBank(~logical(sum(isnan(activationBank')))', 1 : size(activationBank, 2));
+
+[PCAvector, ~, ~] = svd(activationBank_nanremoved', 'econ');
+PCAvector_pc(:, 1) = PCAvector(:, 1);
+PCAvector_pc(:, 2) = PCAvector(:, 2);
+end
