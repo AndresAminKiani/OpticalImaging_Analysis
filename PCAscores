@@ -1,12 +1,8 @@
-function [demeanpixelPCAscores_element, pixelPCAscores_element, PCAvector_element] = PCAscores(pix_time_elements, timeWindow, str)
-    if strcmp(str, 'ElementWisePCA')
-        [demeanpixelPCAscores_element, pixelPCAscores_element, PCAvector_element] = Ret_ElementWise(pix_time_elements);
-    
-    elseif strcmp(str, 'PooledPCA')
-        [demeanpixelPCAscores_element, pixelPCAscores_element, PCAvector_element]  = Ret_Pool(pix_time_elements);
-    
-    else 
-        [demeanpixelPCAscores_element, pixelPCAscores_element, PCAvector_element] = Ret_Old(pix_time_elements, timeWindow);
-    
-    end
+function [dmpcascoresDS_element] = PCAscores(imgDS, PCAvector_pc)
+for element = 1 : size(imgDS, 3)
+    pix_time = imgDS(:, :, element);
+    pcascoresDS_element_1(:, element) = pix_time*PCAvector_pc(:, 1);
+    pcascoresDS_element_2(:, element) = pix_time*PCAvector_pc(:, 2);
+end
+dmpcascoresDS_element = pcascoresDS_element_1 - nanmean(pcascoresDS_element_1, 2);
 end
