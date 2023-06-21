@@ -1,12 +1,16 @@
-function [pix_time_trialsumSingleElement] = meanAcrossTrials_step2(imgDSsingleElement) % 316 316 52 45
-pix_trial_time_singleElement = reshape(imgDSsingleElement, [316*316 size(imgDSsingleElement, 3) size(imgDSsingleElement, 4)]); % 99856 52 45 : pixels trials time
-for z = 1 : length(pix_trial_time_singleElement) % pixels
-    for j = 1 : size(pix_trial_time_singleElement, 3) % time
-        trials_PixelTime = pix_trial_time_singleElement(z, :, j); % vector of trials, 52 x 1
+function [pix_time_trialsumSingleElement] = meanAcrossTrials_step2(imgDSsingleElement, j) % 316 316 52 45
+pix_trial_time_singleElement = reshape(imgDSsingleElement, [316*316 size(imgDSsingleElement, 3)...
+    size(imgDSsingleElement, 4)]); % 99856 45 52 : pixels trials time
+
+for pix = 1 : length(pix_trial_time_singleElement) % pixels
+    for time = 1 : size(pix_trial_time_singleElement, 2) % time
+        trials_PixelTime = squeeze(pix_trial_time_singleElement(pix, time, :)); % vector of trials, 52 x 1
         if length(trials_PixelTime) ~= sum(isnan(trials_PixelTime))
-               pix_time_trialsumSingleElement(z, j) = sum( trials_PixelTime(~isnan(trials_PixelTime))); 
+               pix_time_trialsumSingleElement(pix, time) = sum( trials_PixelTime(~isnan(trials_PixelTime))); 
         else
-               pix_time_trialsumSingleElement(z, j) = nan;
+               pix_time_trialsumSingleElement(pix, time) = nan;
         end
     end
+    disp([num2str(pix), ' ', num2str(j)])
+end
 end
