@@ -1,0 +1,7 @@
+function [pcascoremap_element, pcascoremap_element_vec] = FilterImgDS(pixpcascores_element, mask, filterSize)
+pcascoremap_element = reshape(pixpcascores_element, [ [mask(2) - mask(1) + 1]  [mask(4) - mask(3) + 1] size(pixpcascores_element, 2)]);
+    for j = 1 : size(pcascoremap_element, 3)
+        pcascoremap_element(:, :, j) = imgaussfilt(pcascoremap_element(:, :, j), filterSize);
+    end
+pcascoremap_element_vec = reshape(pcascoremap_element, [[mask(2) - mask(1) + 1] * [mask(4) - mask(3) + 1], size(pcascoremap_element, 3)]);
+end
